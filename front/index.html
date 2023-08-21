@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @font-face {
+            font-family: Proxima Nova;
+            font-style: normal;
+            font-weight: 400;
+            src: url('/assets/fonts/ProximaNovaRegular.ttf');
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Proxima Nova;
+            display: flex;
+        }
+
+        input {
+            outline: none;
+        }
+
+        .container {
+            flex: 1 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .card-container {
+            width: 1120px;
+            gap: 32px;
+            display: grid;
+            justify-content: space-between;
+            grid-template-columns: 1fr 1fr 1fr;
+            /* grid-template-rows: repeat(10, 314px); */
+        }
+
+        .card {
+            height: 314px;
+            padding: 24px;
+            border-radius: 16px;
+            gap: 24px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-card {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 30px;
+            letter-spacing: 0em;
+            margin: 0;
+        }
+
+        .contend-card {
+            width: 162px;
+            height: 60px;
+            gap: 12px;
+        }
+
+        .image {
+            width: 24px;
+            height: 24px;
+            padding: 0px 5px 0px 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 14px;
+        }
+
+        .content-item {
+            display: flex;
+            margin-bottom: 12px;
+        }
+
+        .item {
+            align-self: center;
+            color: rgba(129, 137, 163, 1);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
+
+        .modal {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(188, 195, 208, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close {
+            width: 20px;
+            height: 20px;
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: auto auto;
+            column-gap: 40px;
+            row-gap: 12px;
+            justify-content: center;
+        }
+
+        /* .modal-body>div {
+            display: flex;
+            flex-direction: row;
+        } */
+
+        .modal-content {
+            width: 500px;
+            height: 468px;
+            padding: 24px;
+            border-radius: 16px;
+            gap: 40px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 1);
+            position: relative;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 30px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(38, 44, 64, 1);
+            margin: 0;
+            /* margin-bottom: 40px; */
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        .modal-names {
+            font-size: 21px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(38, 44, 64, 1);
+            /* margin-right: 40px; */
+        }
+
+        .modal-names>div {
+            margin-bottom: 14px;
+        }
+
+        .modal-values {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(129, 137, 163, 1);
+        }
+
+        .modal-values>div {
+            margin-bottom: 14px;
+        }
+
+        .modal-footer-title {
+            font-size: 21px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(38, 44, 64, 1);
+            margin-bottom: 12px;
+        }
+
+        .modal-footer-text {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 18px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: rgba(129, 137, 163, 1);
+        }
+
+        .search {
+            width: 1120px;
+            height: 48px;
+            border-radius: 24px;
+            border: 1px solid rgba(212, 222, 254, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            margin-top: 64px;
+            margin-bottom: 32px;
+        }
+
+        .search>input {
+            line-height: 40px;
+            border: none;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            font-size: x-large;
+        }
+
+        .search>img {
+            width: 24px;
+            height: 24px;
+            /* margin-right: 12px; */
+        }
+
+        .input-search {}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="search">
+            <input id="input-id" class="input-search" type="text">
+            <img src="assets/search.png" alt="search-icon">
+        </div>
+        <div id="mount-point" class="card-container">
+            <div>Пусто</div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title-id" class="modal-title">Modal Header</h2>
+                <img class="close" src="/assets/x.png" alt="close-button">
+            </div>
+            <div id="modal-body-id" class="modal-body">
+                <div class="modal-names">Телефон:</div>
+                <div class="modal-values">+7 (918) 078-17-05</div>
+                <div class="modal-names">Почта:</div>
+                <div class="modal-values">yysavch1@mts.ru</div>
+                <div class="modal-names">Дата приема:</div>
+                <div class="modal-values">15.10.2020</div>
+                <div class="modal-names">Должность:</div>
+                <div class="modal-values">Дизайнер</div>
+                <div class="modal-names">Подразделение:</div>
+                <div class="modal-values">Трайб автоматизированных систем контактных центров</div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-footer-title">Дополнительная информация:</div>
+                <div id="modal-info-id" class="modal-footer-text">Разработчики используют текст в качестве
+                    заполнителя
+                    макта страницы.
+                    Разработчики используют текст в качестве заполнителя макта страницы.</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    let input = document.getElementById('input-id').addEventListener('input', event => {
+        fetch(`http://localhost:3000?term=${event.target.value}`)
+            .then(response => response.json())
+            .then(data => insertData(data))
+            .catch(error => console.log(error))
+
+
+    })
+
+
+
+    let modal = document.getElementById('modal');
+    let span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function openCard(element) {
+        document.getElementById('modal-title-id').innerText = element.getAttribute('name')
+        let markup = `<div class="modal-names">Телефон:</div>
+                <div class="modal-values">${element.getAttribute('phone')}</div>
+                <div class="modal-names">Почта:</div>
+                <div class="modal-values">${element.getAttribute('email')}</div>
+                <div class="modal-names">Дата приема:</div>
+                <div class="modal-values">${element.getAttribute('hireDate')}</div>
+                <div class="modal-names">Должность:</div>
+                <div class="modal-values">${element.getAttribute('positionName')}</div>
+                <div class="modal-names">Подразделение:</div>
+                <div class="modal-values">${element.getAttribute('department')}</div>`
+        document.getElementById('modal-body-id').innerHTML = markup
+        document.getElementById('modal-info-id').innerText = element.getAttribute('address')
+        modal.style.display = 'flex';
+    }
+
+    fetch('http://localhost:3000')
+        .then(response => response.json())
+        .then(data => insertData(data))
+        .catch(error => console.log(error))
+
+    function insertData(data) {
+        let mountPoint = document.getElementById('mount-point')
+        if (data.length !== 0) mountPoint.innerHTML = ''
+        else {
+            mountPoint.innerText = 'Пусто'
+            return
+        }
+        data.forEach(element => {
+            let card = `<div onclick="openCard(this)" class="card" name="${element?.name}" phone="${element?.phone}" email="${element?.email}"
+            address="${element?.address}" positionName="${element?.position_name}" department="${element?.department}"
+            hireDate="${element?.hire_date}">
+            <h2 class="title-card">${element?.name}</h2>
+            <div class="content-card">
+                <div class="content-item">
+                    <div class="image">
+                        <img src="assets/phone.png" alt="phone-image">
+                    </div>
+                    <div class="item">${element?.phone}</div>
+                </div>
+                <div class="content-item">
+                    <div class="image">
+                        <img src="assets/message.png" alt="mail-image">
+                    </div>
+                    <div class="item">${element?.email}</div>
+                </div>
+            </div>
+        </div>`
+            mountPoint.insertAdjacentHTML('beforeend', card)
+        })
+    }
+</script>
+
+</html>
